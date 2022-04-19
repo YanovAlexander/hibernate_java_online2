@@ -7,6 +7,8 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
@@ -20,11 +22,13 @@ public class Main {
             System.out.println("Session opened");
             transaction = session.beginTransaction();
             //retrieve by id = 1
-            final Message message = session.get(Message.class, 1);
-            //modify set new message body
-            message.setMessage(message.getMessage() + " UPDATED");
+            final List<Message> messages = session.createQuery("FROM Message").list();
+            messages.forEach(message -> {
+                System.out.println("----------------------------");
+                System.out.println("Message id " + message.getId());
+                System.out.println("Message " + message.getMessage());
+            });
             transaction.commit();
-            session.merge(message);
             System.out.println("Session closed");
         } catch (Exception ex) {
             if (transaction != null) {
