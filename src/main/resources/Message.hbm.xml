@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.goit.message.Message" table="message" catalog="hibernate" schema="public">
+        <id name="id" type="java.lang.Integer">
+            <column name="id"/>
+            <generator class="increment">
+                <param name="sequence">message_id_seq</param>
+            </generator>
+        </id>
+        <property name="message" type="java.lang.String">
+            <column name="message" length="1000"/>
+        </property>
+
+    </class>
+</hibernate-mapping>
